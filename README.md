@@ -123,6 +123,8 @@ developed. To do so, use Flask to create your routes as follows:
 
 ## Links
 
+[Python .describe() method](https://www.askpython.com/python/examples/calculate-summary-statistics)
+
 
 
 
