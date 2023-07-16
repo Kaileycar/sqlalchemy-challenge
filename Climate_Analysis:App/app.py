@@ -27,7 +27,7 @@ Measurement = Base.classes.measurement
 Station = Base.classes.station
 
 # Create our session (link) from Python to the DB
-session = Session(engine)
+# session = Session(engine)
 
 #################################################
 # Flask Setup
@@ -63,11 +63,17 @@ def Home():
 @app.route("/api/v1.0/precipitation")
 def precipitation():
 
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
     # Query last 12 months of data
     year_ago = '2016-08-23'
     result = session.query(Measurement.date, Measurement.prcp). \
     filter(Measurement.date >= year_ago). \
     order_by(Measurement.date).all()
+
+    # Close Session
+    session.close()
 
     # Convert query to dictionary with date as key and prcp as value
     all_dates = []
@@ -83,11 +89,17 @@ def precipitation():
 @app.route("/api/v1.0/stations")
 def stations():
 
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
     # Query all stations from dataset
     results = session.query(Station.name, Station.station).all()
 
     # Convert into list
     # all_stations = list(np.ravel(station))
+
+     # Close Session
+    session.close()
 
     all_stations = []
     for name, station in results:
@@ -103,6 +115,9 @@ def stations():
 @app.route("/api/v1.0/tobs")
 def tobs():
 
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
     # Create variable for most active station
     most_active = session.query(Measurement.station, func.count(Measurement.id)). \
     group_by(Measurement.station). \
@@ -113,6 +128,9 @@ def tobs():
     active_station_temp = session.query(Measurement.date, Measurement.tobs). \
                   filter(Measurement.date >= year_ago). \
                   filter(Measurement.station == most_active[0]).all()
+    
+     # Close Session
+    session.close()
 
     # Convert into list of dictionaries
     all_tobs = []
@@ -129,6 +147,9 @@ def tobs():
 @app.route("/api/v1.0/start/<start>")
 def start(start):
 
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
     # Fetch the min, max, and avg tobs for date >= to start
     sel = [func.min(Measurement.tobs),
            func.avg(Measurement.tobs),
@@ -136,6 +157,9 @@ def start(start):
     
     start_date = session.query(*sel). \
                  filter(Measurement.date >= start).all()
+    
+     # Close Session
+    session.close()
     
     # Convert into a list of dictionaries
     start_list = []
@@ -154,6 +178,9 @@ def start(start):
 @app.route("/api/v1.0/start_end/<start>/<end>")
 def start_end(start, end):
 
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+
     # Query min, abg, max tobs of a start and end date
     sel = [func.min(Measurement.tobs),
            func.avg(Measurement.tobs),
@@ -162,6 +189,9 @@ def start_end(start, end):
     start_end_date = session.query(*sel). \
                  filter(Measurement.date >= start). \
                  filter(Measurement.date <= end).all()
+    
+     # Close Session
+    session.close()
     
     # Convert into a list of dictionaries
     start_end_list = []
@@ -176,9 +206,6 @@ def start_end(start, end):
 
     # Return Json
     return jsonify(start_end_list)
-
-# Close session
-session.close()
 
 
 if __name__ == '__main__':
