@@ -5,10 +5,12 @@
 
 [Background](https://github.com/Kaileycar/sqlalchemy-challenge#background)  
 [Before You Begin](https://github.com/Kaileycar/sqlalchemy-challenge#before-you-begin)  
+
 [Part 1](https://github.com/Kaileycar/sqlalchemy-challenge#part-1)  
 [Analyze and Explore the Climate Data](https://github.com/Kaileycar/sqlalchemy-challenge#analyze-and-explore-the-climate-data)  
 [Precipitation Analysis](https://github.com/Kaileycar/sqlalchemy-challenge#precipitation-analysis)  
-[Station Analysis](https://github.com/Kaileycar/sqlalchemy-challenge#station-analysis)  
+[Station Analysis](https://github.com/Kaileycar/sqlalchemy-challenge#station-analysis)   
+
 [Part 2](https://github.com/Kaileycar/sqlalchemy-challenge#part-2)  
 [Design Your Climate App](https://github.com/Kaileycar/sqlalchemy-challenge#design-your-climate-app)  
 [Hints](https://github.com/Kaileycar/sqlalchemy-challenge#hints)  
